@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="/css/pageAndEditor.css"/>
 
-{{--    <title>Главная страница</title>--}}
+    <title>Главная страница</title>
 </head>
 <body>
 <main>
@@ -17,12 +17,12 @@
             <h2>День рождения: {{$_SESSION['anotherBirthday']}}</h2>
             <h2>Город: {{$_SESSION['anotherCity']}}</h2>
         </div>
-        <? if(Auth::check() and $_SESSION['type']!=2){?>
-        <form action="{{route('user.addComment')}}" class='addcomment' method="post" enctype="multipart/form-data">
-            @csrf
-            <input type="text" class='inptcomment' name="Text" placeholder="Написать комментарий"/>
-            <button class='addcommentbutton' type="submit">Опубликовать</button>
-        </form><?}?>
+        <button class='edit'><a style=' text-decoration: none; ' href="changeType">
+            <?if($_SESSION['anotherType']=='2'){ ?>
+                Разблокировать <?}else{ ?>
+                Заблокировать<? } ?>
+
+            </a></button>
     </div>
 
     <section>

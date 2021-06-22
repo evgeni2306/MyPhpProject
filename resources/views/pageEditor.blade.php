@@ -4,7 +4,7 @@
     <meta http-equiv="Cache-Control" content="no-cache">
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="/css/pageAndEditor.css"/>
-    <title>Главная страница</title>
+    <title>Редактирование моей страницы</title>
 </head>
 <body>
 <main>

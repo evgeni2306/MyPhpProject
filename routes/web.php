@@ -4,6 +4,8 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AddPostController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\EditorController;
+use App\Http\Controllers\ChangeTypeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -42,7 +44,10 @@ Route::name('user.')->group(function () {
 
     Route::get('/private', function () {
         if (Auth::check()) {
-            return view('private');
+            if ($_SESSION['type'] == '2') {
+                return view('anotherPageBanned');
+            } else
+                return view('private');
         }
         return redirect(\route('user.login'));
     })->name('private');
@@ -66,7 +71,10 @@ Route::name('user.')->group(function () {
         if (!Auth::check()) {
             return redirect(\route('user.login'));
         }
-        return view('PageEditor');
+        if ($_SESSION['type'] == '2') {
+            return redirect(route('user.private'));
+        } else
+            return view('PageEditor');
     })->name('pageEditor');
 
     Route::get('/addComment', function () {
@@ -80,14 +88,28 @@ Route::name('user.')->group(function () {
         if (!Auth::check()) {
             return redirect(\route('user.login'));
         }
+        if ($_SESSION['type'] == '2') {
+            return redirect(route('user.private'));
+        } else
         return view('search');
     })->name('search');
 
+    Route::get('/changeType', function () {
+        if (!Auth::check()) {
+            return redirect(\route('user.login'));
+        }
+        if ($_SESSION['type'] !='0') {
+            return redirect(route('user.private'));
+        } else
+            return redirect()->intended('/id={' . $_SESSION['anotherId'] . '}');
+    })->name('changeType');
+
+    Route::get('/changeType', [ChangeTypeController::class, 'UpdateType']);
     Route::post('/search', [SearchController::class, 'Search']);
     Route::post('/private', [AddPostController::class, 'AddMyPost']);
     Route::post('/addComment', [AddPostController::class, 'AddPost']);
     Route::post('/registration', [RegisterController::class, 'Save']);
-    Route::post('/pageEditor', [\App\Http\Controllers\EditorController::class, 'Update']);
+    Route::post('/pageEditor', [EditorController::class, 'Update']);
 });
 
 

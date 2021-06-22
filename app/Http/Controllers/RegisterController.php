@@ -23,6 +23,7 @@ class RegisterController extends Controller
         ]);
         $validateFields['city'] = 'Не указан';
         $validateFields['photo'] = 'avatar.jpg';
+        $validateFields['type'] = 1;
 
         if (User::where('email', $validateFields['email'])->exists()) {
             return redirect(route('user.registration'))->withErrors([
@@ -38,6 +39,12 @@ class RegisterController extends Controller
             $_SESSION['avatar'] = 'avatar.jpg';
             $userr = DB::table('users')->select('id')->where('email', $validateFields['email'])->first();
             $_SESSION['id'] = $userr->id;
+            $getPosts = DB::table('posts')
+                ->join('users', 'users.id', '=', 'posts.CreatorId',)
+                ->select('Text', 'name', 'surname')
+                ->where('OwnerId', $_SESSION['id'])->get();
+            $_SESSION['Posts'] = $getPosts;
+            $_SESSION['type'] ='1';
             Auth::login($user);
             return redirect(route('user.login'))->withErrors([
                 'email' => 'Произошла ошибка при сохранении пользоватея'

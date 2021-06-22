@@ -17,18 +17,24 @@ class AddPostController extends Controller
         if (!Auth::check()) {
             return redirect(route('user.login'));
         } else {
-            $validateFields = $request->validate([
-                'Text' => 'required',
-            ]);
-            $validateFields['CreatorId'] = $_SESSION['id'];
-            $validateFields['OwnerId'] = $_SESSION['anotherId'];
-            $post = Post::create($validateFields);
-            if ($post) {
-                return redirect()->intended('/id=' . $_SESSION['anotherId']);
-
-            }
+            $getType = DB::table('users')->select('type')
+                ->where('id', $_SESSION['id'])->first();
+            $_SESSION['type'] = $getType->type;
 
 
+            if ($_SESSION['type'] != 2) {
+                $validateFields = $request->validate([
+                    'Text' => 'required',
+                ]);
+                $validateFields['CreatorId'] = $_SESSION['id'];
+                $validateFields['OwnerId'] = $_SESSION['anotherId'];
+                $post = Post::create($validateFields);
+                if ($post) {
+                    return redirect()->intended('/id=' . $_SESSION['anotherId']);
+
+                }
+
+            } else return redirect(route('user.private'));
         }
 
 
@@ -39,24 +45,25 @@ class AddPostController extends Controller
         if (!Auth::check()) {
             return redirect(route('user.login'));
         } else {
-            $validateFields = $request->validate([
-                'Text' => 'required',
-            ]);
-            $validateFields['CreatorId'] = $_SESSION['id'];
-            $validateFields['OwnerId'] = $_SESSION['id'];
-            $post = Post::create($validateFields);
-            if ($post) {
-                $getPosts = DB::table('posts')
-                    ->join('users', 'users.id', '=', 'posts.CreatorId',)
-                    ->select('Text', 'name', 'surname')
-                    ->where('OwnerId', $_SESSION['id'])->get();
+            if ($_SESSION['type'] != 2) {
+                $validateFields = $request->validate([
+                    'Text' => 'required',
+                ]);
+                $validateFields['CreatorId'] = $_SESSION['id'];
+                $validateFields['OwnerId'] = $_SESSION['id'];
+                $post = Post::create($validateFields);
+                if ($post) {
+                    $getPosts = DB::table('posts')
+                        ->join('users', 'users.id', '=', 'posts.CreatorId',)
+                        ->select('Text', 'name', 'surname')
+                        ->where('OwnerId', $_SESSION['id'])->get();
 
-                $_SESSION['Posts'] = $getPosts;
-                return redirect()->intended('/private');
+                    $_SESSION['Posts'] = $getPosts;
+                    return redirect()->intended('/private');
 
-            }
+                }
 
-
+            } else return redirect(route('user.private'));
         }
 
 

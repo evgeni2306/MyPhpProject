@@ -20,22 +20,29 @@ class LoginController extends Controller
 
         if (Auth::attempt($formFields)) {
             $user = DB::table('users')->where('email', $formFields['email'])->first();
-            $_SESSION['name'] = $user->name;
-            $_SESSION['surname'] = $user->surname;
-            $_SESSION['city'] = $user->city;
-            $_SESSION['birthday'] = $user->birthday;
-            $_SESSION['id'] = $user->id;
-            $_SESSION['avatar'] = $user->photo;
+            if ($user->type != '2') {
+                $_SESSION['name'] = $user->name;
+                $_SESSION['surname'] = $user->surname;
+                $_SESSION['city'] = $user->city;
+                $_SESSION['birthday'] = $user->birthday;
+                $_SESSION['id'] = $user->id;
+                $_SESSION['avatar'] = $user->photo;
+                $_SESSION['type'] = $user->type;
 
-            $getPosts = DB::table('posts')
-                ->join('users', 'users.id', '=', 'posts.CreatorId',)
-                ->select('Text', 'name', 'surname')
-                ->where('OwnerId', $_SESSION['id'])->get();
+                $getPosts = DB::table('posts')
+                    ->join('users', 'users.id', '=', 'posts.CreatorId',)
+                    ->select('Text', 'name', 'surname')
+                    ->where('OwnerId', $_SESSION['id'])->get();
 
-            $_SESSION['Posts'] = $getPosts;
+                $_SESSION['Posts'] = $getPosts;
 
 
-            return redirect()->intended(route('user.private'));
+            } else {
+                $_SESSION['id'] = $user->id;
+                $_SESSION['type'] = '2';
+                return redirect()->intended(route('user.private'));
+            }
+
         }
         return redirect(route('user.login'))->withErrors([
             'email' => 'Неверное имя пользователя или пароль'

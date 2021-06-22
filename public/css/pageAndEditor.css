@@ -11,6 +11,19 @@ body{
     border-radius: 5px;
     justify-content: center;
 }
+.banned-interface{
+    background-color: white;
+    width:700px;
+    height:652px;
+    margin: 0 auto;
+    border-radius: 5px;
+}
+.banned{
+    width: 600px;
+    height:200px;
+    margin-left: 60px;
+    margin-top:100px;
+}
 .user-interface{
     display: grid;
     background-color: white;
@@ -59,6 +72,7 @@ body{
 /*    grid-area:birthday;*/
 /*    margin-top:-240px;*/
 /*}*/
+
 .addcomment{
     grid-area:commentadd;
     margin-top:-250px;
@@ -87,7 +101,7 @@ body{
 }
 .edit{
     height:20px;
-    width:105px;
+    width:110px;
     grid-area:edit;
     margin-left:10px;
     margin-top:-250px;

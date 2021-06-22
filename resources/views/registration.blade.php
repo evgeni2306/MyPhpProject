@@ -8,7 +8,7 @@
     <link href="{{asset('css/loginPage.css')}}" rel="stylesheet">
     <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
     <meta name="csrf-token" content="{{csrf_token()}}">
-    <title>Страница регистрации</title>
+    <title>Регистрация</title>
 </head>
 <body>
 <div class="container">
