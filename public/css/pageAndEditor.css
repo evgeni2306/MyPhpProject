@@ -1,0 +1,111 @@
+/*<---------------------------------------------Account------------------------------------------------->*/
+body{
+    margin:0;
+    background-color: #efefef;
+}
+.header{
+    background-color: #009dc6;
+    width:800px;
+    height:70px;
+    margin: 0 auto;
+    border-radius: 5px;
+    justify-content: center;
+}
+.user-interface{
+    display: grid;
+    background-color: white;
+    width:700px;
+    height:652px;
+    margin: 0 auto;
+    border-radius: 5px;
+    grid-template-areas:"avatar avatar name  name"
+                        "avatar avatar  birthday birthday"
+                        "avatar avatar city city"
+    "edit edit edit edit"
+    "commentadd commentadd commentadd commentadd"
+}
+.header-button{
+    width: 100px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    margin-top:20px;
+}
+.mystr-button{
+    width: 150px;
+}
+
+.search-button{
+    margin-left: 10%
+}
+.exit-button{
+    margin-left: 40%;
+}
+.avatar{
+    width: 200px;
+    height:200px;
+    margin-left: 10px;
+    margin-top:10px;
+}
+/*.name{*/
+/*     grid-area:name;*/
+/*     margin-right:70px;*/
+/*     margin-bottom:10px;*/
+/* }*/
+/*.city{*/
+/*    grid-area:city;*/
+/*    margin-top:-300px;*/
+/*}*/
+/*.birthday{*/
+/*    grid-area:birthday;*/
+/*    margin-top:-240px;*/
+/*}*/
+.addcomment{
+    grid-area:commentadd;
+    margin-top:-250px;
+    margin-left: 190px;
+}
+.commentslist{
+    margin:0 auto;
+    margin-top:-290px;
+    margin-right: 510px;
+    width: 500px;
+    height: 200px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+.inptcomment{
+    width:350px;
+}
+.addcommentbutton{
+
+}
+.usercomment{
+
+}
+.username{
+    display:none;
+}
+.edit{
+    height:20px;
+    width:105px;
+    grid-area:edit;
+    margin-left:10px;
+    margin-top:-250px;
+}
+/*<---------------------------------------------PageEditor------------------------------------------------->*/
+.editor-interface{
+    background-color: white;
+    width:700px;
+    height:652px;
+    margin: 0 auto;
+    border-radius: 5px;
+}
+.inpttext{
+    width:200px;
+    padding:5px;
+    margin-left:250px;
+    margin-top:20px;
+}
+.user-information{
+    margin-left:25px;
+}
